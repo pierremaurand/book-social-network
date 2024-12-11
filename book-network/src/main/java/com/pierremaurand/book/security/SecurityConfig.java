@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import jakarta.servlet.Filter;
+
 import static org.springframework.security.config.Customizer.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -20,8 +22,8 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 
-   // private final JwtFilter jwtAuthFilter;
-   // private final AuthenticationProvider authenticationProvider;
+   private final JwtFilter jwtAuthFilter;
+   private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -45,8 +47,9 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                         )
-                        .oauth2ResourceServer(auth ->
-                        auth.jwt(token -> token.jwtAuthenticationConverter(new KeycloakJwtAuthenticationConverter())));
+                        .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                        .authenticationProvider(authenticationProvider)
+                        .addFilterBefore((Filter) jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

@@ -17,10 +17,10 @@ import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
 
-//@Service
-//@RequiredArgsConstructor
+@Service
+@RequiredArgsConstructor
 public class JwtService {
-    /*
+    
     private static final String secretKey = "484E635266556A586E3272357538782F413F442847384B625864536756685978";
     private static final Long jwtExpiration = Long.valueOf(8640000);
 
@@ -83,5 +83,5 @@ public class JwtService {
         byte[] bytes = Base64.getDecoder()
                 .decode(secretKey.getBytes(StandardCharsets.UTF_8));
         return new SecretKeySpec(bytes, "HmacSHA256");
-    }*/
+    }
 }

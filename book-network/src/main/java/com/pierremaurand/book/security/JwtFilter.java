@@ -18,10 +18,10 @@ import java.io.IOException;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
-// @Component
+@Component
 @RequiredArgsConstructor
-public class JwtFilter { //extends OncePerRequestFilter {
-    /*private final JwtService jwtService;
+public class JwtFilter extends OncePerRequestFilter {
+    private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
     @Override
@@ -58,5 +58,5 @@ public class JwtFilter { //extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
-    }*/
+    }
 }

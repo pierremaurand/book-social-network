@@ -19,7 +19,7 @@ public class BookNetworkApiApplication {
 		SpringApplication.run(BookNetworkApiApplication.class, args);
 	}
 
-	/*@Bean
+	@Bean
 	public CommandLineRunner runner(RoleRepository roleRepository) {
 		return args -> {
 			if(roleRepository.findByName("USER").isEmpty()) {
@@ -28,6 +28,6 @@ public class BookNetworkApiApplication {
 				);
 			}
 		};
-	}*/
+	}
 
 }
