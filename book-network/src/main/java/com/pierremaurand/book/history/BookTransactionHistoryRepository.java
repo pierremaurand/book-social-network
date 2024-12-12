@@ -12,16 +12,16 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
     @Query("""
             SELECT h
             FROM BookTransactionHistory h
-            WHERE h.userId = :userId
+            WHERE h.user.id = :userId
             """)
-    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable,String userId);
+    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable,Integer userId);
 
     @Query("""
             SELECT h
             FROM BookTransactionHistory h
             WHERE h.book.createdBy= :userId
             """)
-    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, String userId);
+    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, Integer userId);
 
     @Query("""
             SELECT
@@ -31,7 +31,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             AND h.createdBy = :userId
             AND h.returnApproved = false
             """)
-    boolean isAlreadyBorrowedByUser(@Param("bookId") Integer bookId, @Param("userId") String userId);
+    boolean isAlreadyBorrowedByUser(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 
     @Query("""
             SELECT
@@ -46,11 +46,11 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             SELECT h
             FROM BookTransactionHistory h
             WHERE h.book.id = :bookId
-            AND h.userId = :userId
+            AND h.user.id = :userId
             AND h.returned = false
             AND h.returnApproved = false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("userId") String userId);
+    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 
     @Query("""
             SELECT h
@@ -60,5 +60,5 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             AND h.returned = true
             AND h.returnApproved = false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId, @Param("userId") String userId);
+    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId, @Param("userId") Integer userId);
 }
